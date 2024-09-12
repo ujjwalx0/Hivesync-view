@@ -5,11 +5,11 @@ import autoprefixer from 'autoprefixer';
 import sitemap from 'vite-plugin-sitemap';
 
 export default defineConfig({
-  base: 'www.hivesync.in.net', 
+  base: '/', 
   plugins: [
     react(),
     sitemap({
-      hostname: 'https://www.hivesync.in.net', 
+      hostname: 'https://hivesync.in.net', 
      
     }),
   ],
