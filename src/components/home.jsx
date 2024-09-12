@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-24 lg:py-36 bg-transparent">
+    <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-4 sm:px-6 md:px-12 lg:px-24 py-0 mt-20 sm:mt-0 md:py-24 lg:py-36 bg-transparent">
       {/* Text Section with Enhanced 3D Style */}
       <motion.div
-        className="flex-1 text-center md:text-left mb-12 md:mb-0 md:pr-8 lg:pr-12"
+        className="flex-1 text-center md:text-left  -mb-20 md:pr-4 lg:pr-12"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
@@ -25,11 +25,10 @@ const Home = () => {
         >
           Shaping the Future with Hivesync
           <span
-  className="relative text-blue-400 text-opacity-80 animate-pulse sm:right-0 right-0 sm:top-2 top-1"
->
-  ✨
-</span>
-
+            className="relative text-blue-400 text-opacity-80 animate-pulse sm:right-0 right-0 sm:top-2 top-1"
+          >
+            ✨
+          </span>
         </motion.h1>
         <motion.p
           className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 mb-6"
@@ -68,7 +67,7 @@ const Home = () => {
 
       {/* Image Section with Framer Motion and Effects */}
       <motion.div
-        className="flex-1 flex justify-center md:justify-end"
+        className="flex-1 flex justify-center md:justify-end pb-10 sm:pb-0" // Added 10px padding-bottom for smaller screens only
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1, ease: 'easeOut' }}

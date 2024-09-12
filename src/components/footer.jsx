@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import logo from "../assets/logo.svg";
 
 const footerLinks = [
   { name: 'Home', link: '#home' },
@@ -56,8 +57,8 @@ const Footer = () => {
             className="flex items-center space-x-3"
           >
             <motion.img
-              src="../src/assets/logo.svg"
-              alt="Company Logo"
+              src={logo}
+              alt="Hivesync"
               className="h-40 w-40"
             />
           </motion.div>

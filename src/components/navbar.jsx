@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom'; 
+import logo from "../assets/logo.svg";
 
 const navItems = [
   { name: 'Home', link: '#home' },
@@ -116,8 +117,9 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <a href="#" className="text-xl font-bold text-white">
               <motion.img
-                src="..\src\assets\logo.svg"
-                alt="MyLogo"
+                rel="preload"
+                src={logo}
+                alt="Hivesync"
                 className="h-8 inline-block mr-2"
                 whileHover="hover"
                 variants={hoverEffect}
