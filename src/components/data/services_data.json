@@ -1,0 +1,35 @@
+{
+    "services": [
+      {
+        "icon": "FaAppStore",
+        "service_name": "Application Development",
+        "service_desc": "We specialize in creating and optimizing high-quality, custom websites and applications tailored to the unique needs of businesses and organizations."
+      },
+      {
+        "icon": "FaCloud",
+        "service_name": "Cloud Services",
+        "service_desc": "Our cloud services offer scalable and secure solutions to enhance your IT infrastructure."
+      },
+      {
+        "icon": "FaTools",
+        "service_name": "Maintenance & Support",
+        "service_desc": "We provide comprehensive maintenance and support services to ensure your systems and applications run smoothly."
+      },
+      {
+        "icon": "FaDatabase",
+        "service_name": "Data Analytics & BI",
+        "service_desc": "Our data analytics and business intelligence services transform raw data into actionable insights."
+      },
+      {
+        "icon": "FaDev",
+        "service_name": "DevOps",
+        "service_desc": "We integrate development and operations to streamline your software delivery process."
+      },
+      {
+        "icon": "FaShieldAlt",
+        "service_name": "Quality Engineering",
+        "service_desc": "Our quality engineering services ensure your software meets the highest standards of performance, reliability, and security."
+      }
+    ]
+  }
+  
