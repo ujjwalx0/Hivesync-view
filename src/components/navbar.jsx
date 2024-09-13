@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import logo from "../assets/logo.svg";
 
 const navItems = [
-  { name: 'Home', link: '/' },
+  { name: 'Home', link: '#home' },
   { name: 'About', link: '#about' },
   { name: 'Services', link: '#services' },
   { name: 'Contact', link: '/contact' }, 

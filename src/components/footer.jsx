@@ -30,14 +30,25 @@ const Footer = () => {
 
   const navigate = useNavigate();
 
+ 
+
   const handleLinkClick = (link) => {
     if (link.startsWith('#')) {
-      navigate('/'); 
+      // Navigate to the homepage first
+      navigate('/');
+      
+      // Delay scrolling to allow navigation to complete
       setTimeout(() => {
-        window.location.hash = link; 
-      }, 100); 
+        const sectionId = link.substring(1);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     } else {
-      navigate(link); 
+      // Scroll to top before navigating to a different page
+      window.scrollTo(0, 0);
+      navigate(link);
     }
   };
 
