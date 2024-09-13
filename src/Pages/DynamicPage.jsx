@@ -7,7 +7,6 @@ import NotFound from './NotFound';
 
 const DynamicPage = () => {
   const location = useLocation();
-  const currentRoute = routes.find(route => route.path === location.pathname);
 
   return (
     <div className="App">

@@ -1,4 +1,3 @@
-
 import './App.css'; 
 import './index.css'; 
 import React from 'react';
@@ -18,5 +17,3 @@ const App = () => {
 };
 
 export default App;
-
-
