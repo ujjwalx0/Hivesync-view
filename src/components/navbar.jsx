@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, Link } from 'react-router-dom'; 
 import logo from "../assets/logo.svg";
 
 const navItems = [
-  { name: 'Home', link: '#home' },
+  { name: 'Home', link: '/' },
   { name: 'About', link: '#about' },
   { name: 'Services', link: '#services' },
-  { name: 'Contact', link: '/contact' },
+  { name: 'Contact', link: '/contact' }, 
 ];
 
 const Navbar = () => {
@@ -29,19 +29,21 @@ const Navbar = () => {
 
   const handleNavigation = (link) => {
     if (link.startsWith('#')) {
-      if (window.location.pathname !== '/') {
-        navigate('/'); 
-      }
+      // Navigate to the homepage first
+      navigate('/');
       
+      // Delay scrolling to allow navigation to complete
       setTimeout(() => {
-        const sectionId = link.substring(1); 
+        const sectionId = link.substring(1);
         const element = document.getElementById(sectionId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
     } else {
-      navigate(link); 
+      // Scroll to top before navigating to a different page
+      window.scrollTo(0, 0);
+      navigate(link);
     }
   };
 
@@ -130,15 +132,27 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map((item) => (
-              <motion.button
-                key={item.name}
-                onClick={() => handleNavigation(item.link)}
-                whileHover="hover"
-                variants={menuItemHover}
-                className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition duration-300"
-              >
-                {item.name}
-              </motion.button>
+              item.link.startsWith('#') ? (
+                <motion.button
+                  key={item.name}
+                  onClick={() => handleNavigation(item.link)}
+                  whileHover="hover"
+                  variants={menuItemHover}
+                  className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition duration-300"
+                >
+                  {item.name}
+                </motion.button>
+              ) : (
+                <Link key={item.name} to={item.link}>
+                  <motion.button
+                    whileHover="hover"
+                    variants={menuItemHover}
+                    className="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition duration-300"
+                  >
+                    {item.name}
+                  </motion.button>
+                </Link>
+              )
             ))}
           </div>
 

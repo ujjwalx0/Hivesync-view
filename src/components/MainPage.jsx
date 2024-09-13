@@ -12,10 +12,10 @@ const MainPage = () => {
       <section id="home">
         <Home />
       </section>
-      <section id="#about">
+      <section id="about">
         <About />
       </section>
-      <section id="#services">
+      <section id="services">
         <Services />
       </section>
       <Footer />

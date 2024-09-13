@@ -228,6 +228,8 @@ const SpinnerGame = () => {
   );
 };
 
+
+
 const WhackAMoleGame = () => {
   const [score, setScore] = useState(0);
   const [molePosition, setMolePosition] = useState({ x: 0, y: 0 });
@@ -268,6 +270,10 @@ const WhackAMoleGame = () => {
 
 const NotFound = () => {
   const [selectedGame, setSelectedGame] = useState('TicTacToe');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const renderGame = () => {
     switch (selectedGame) {
