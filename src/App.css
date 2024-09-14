@@ -4,4 +4,17 @@
   padding: 2rem;
   text-align: center;
 }
+/* Ensure uniform size for each tab */
+.service-tab {
+  width: auto !important; /* Fixed width for all tabs */
+  height: 100px; /* Fixed height for all tabs */
+  margin: 0 10px !important; /* Gap of 20px between tabs (10px on each side) */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  border: 2px solid transparent;
+}
+
 

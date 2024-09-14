@@ -1,31 +1,52 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import services from './data/services'; // Ensure this path is correct
+import React, { useState } from 'react';
+import Slider from 'react-slick';
+import services from './data/services'; 
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
-const ServicesTemplate = () => {
-  // 3D hover effect variants
-  const cardVariants = {
-    hover: {
-      scale: 1.1,
-      rotateX: 10,
-      rotateY: 15,
-      rotateZ: 5,
-      transition: {
-        type: 'spring',
-        stiffness: 200,
-        damping: 15,
+
+const ServicesCarousel = () => {
+  const [selectedService, setSelectedService] = useState(0);
+
+  const handleTabClick = (index) => {
+    setSelectedService(index);
+  };
+
+  const handleAfterChange = (currentSlide) => {
+    setSelectedService(currentSlide);
+  };
+
+  const { icon: SelectedIcon, service_name, service_desc } = services[selectedService];
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    centerMode: true,
+    centerPadding: '10px',
+    afterChange: handleAfterChange,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          centerPadding: '10px',
+        }
       },
-    },
-    tap: {
-      scale: 0.95,
-      rotateX: -5,
-      rotateY: -5,
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 20,
-      },
-    },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerPadding: '10px',
+        }
+      }
+    ]
   };
 
   return (
@@ -35,43 +56,37 @@ const ServicesTemplate = () => {
           Our Services
         </span>
       </h2>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            className="group rounded-xl border p-8 shadow-lg transition-transform duration-300  dark:bg-gray-800 cursor-pointer relative overflow-hidden"
-            whileHover={{ 
-              scale: 1.05, 
-              transition: { duration: 0.4, ease: 'easeInOut' }
-            }}
-            initial={{ scale: 1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div
-              className="relative rounded-lg p-6 flex flex-col items-center justify-center"
-              variants={cardVariants}
-              whileHover="hover"
-              whileTap="tap"
-              initial="rest"
+      <div className="relative">
+        {/* Carousel for Tabs */}
+        <Slider {...settings} className="pb-4">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className={`service-tab rounded border-2 ${index === selectedService ? 'bg-gradient-to-r from-green-300 via-yellow-300 to-red-300' : 'bg-gray-200'} flex items-center justify-center p-4 m-2 cursor-pointer`}
+              onClick={() => handleTabClick(index)}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30 -z-10 transform rotate-12 scale-110" />
-              <div className="mb-6 flex items-center justify-center">
-                <div className="text-5xl text-primary dark:text-white">
-                  {React.createElement(service.icon)}
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
-                {service.service_name}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                {service.service_desc}
-              </p>
-            </motion.div>
-          </motion.div>
-        ))}
+              <div className="text-2xl">{React.createElement(service.icon)}</div>
+              <span className="text-lg font-semibold text-center">{service.service_name}</span>
+            </div>
+          ))}
+        </Slider>
+        {/* Service Detail Card */}
+        <div className="mt-8 p-6  border shadow-lg rounded-lg dark:bg-gray-800 detail-card max-w-md mx-auto">
+          <div className="flex items-center justify-center mb-4">
+            <div className="text-5xl text-blue-600 dark:text-white">
+              {React.createElement(SelectedIcon)}
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-white text-center mb-4">
+            {service_name}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 text-center">
+            {service_desc}
+          </p>
+        </div>
       </div>
     </section>
   );
 };
 
-export default ServicesTemplate;
+export default ServicesCarousel;
