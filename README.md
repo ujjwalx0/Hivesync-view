@@ -1,4 +1,4 @@
----
+
 
 # Hivesync - Innovative E-Commerce & IT Solutions
 
@@ -133,4 +133,3 @@ We welcome contributions to **Hivesync**! If you'd like to contribute, please fo
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
----
