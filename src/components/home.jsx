@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import home from "../assets/home.png";
+
+const preloadImage = new Image();
+preloadImage.src = home;
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-4 sm:px-6 md:px-12 lg:px-24 py-0 mt-20 sm:mt-0 md:py-24 lg:py-36 bg-transparent">
+    <div className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-4 sm:px-6 md:px-12 lg:px-24 mb-20 lg:mb-0 mt-20 sm:mt-0 md:py-24 lg:py-36 bg-transparent">
       {/* Text Section with Enhanced 3D Style */}
       <motion.div
-        className="flex-1 text-center md:text-left  -mb-20 md:pr-4 lg:pr-12"
+        className="flex-1 text-center md:text-left -mb-20 md:pr-4 lg:pr-12"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
@@ -67,15 +71,22 @@ const Home = () => {
 
       {/* Image Section with Framer Motion and Effects */}
       <motion.div
-        className="flex-1 flex justify-center md:justify-end pb-10 sm:pb-0" // Added 10px padding-bottom for smaller screens only
+        className="flex-1 flex justify-center md:justify-end pb-10 sm:pb-0 perspective"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1, ease: 'easeOut' }}
+        style={{ perspective: '1000px' }} // Added perspective to the parent container
       >
-        <img
-          src="/src/assets/logo.svg" // Adjust the path to match your project structure
+        <motion.img
+          src={home}
           alt="Hero"
-          className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto shadow-2xl rounded-lg transform hover:scale-105 transition-transform duration-500"
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-50 rounded-lg "
+          style={{ transformStyle: 'preserve-3d' }} // Ensure 3D transformation is preserved
+          initial={{ rotateY: 0 }}
+          whileHover={{
+            rotateY: 180,
+            transition: { duration: 0 } // Instant transition for the flip effect
+          }}
         />
       </motion.div>
     </div>
