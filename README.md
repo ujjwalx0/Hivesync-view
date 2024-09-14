@@ -130,6 +130,4 @@ We welcome contributions to **Hivesync**! If you'd like to contribute, please fo
 5. Open a pull request.
 
 ## License
-
-This project is licensed under the MIT License. See the [https://github.com/ujjwalx0/Hivesync-view/blame/main/LICENSE](LICENSE) file for more details.
-
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/ujjwalx0/Hivesync-view/main/LICENSE) file for more details.
