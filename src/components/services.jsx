@@ -39,7 +39,7 @@ const ServicesTemplate = () => {
         {services.map((service, index) => (
           <motion.div
             key={index}
-            className="group rounded-xl border p-8 shadow-lg transition-transform duration-300 bg-white dark:bg-gray-800 cursor-pointer relative overflow-hidden"
+            className="group rounded-xl border p-8 shadow-lg transition-transform duration-300  dark:bg-gray-800 cursor-pointer relative overflow-hidden"
             whileHover={{ 
               scale: 1.05, 
               transition: { duration: 0.4, ease: 'easeInOut' }
