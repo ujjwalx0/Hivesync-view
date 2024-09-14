@@ -9,22 +9,23 @@ preloadImage.src = pilot;
 
 export const About = () => {
   return (
-    <section id="about" className="container py-0 sm:py-0 mb-0 flex items-center justify-center">
-      <div className="bg-muted/50 rounded-lg py-0 px-6">
-        <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-12 items-center justify-center">
+    <section id="about" className="container py-0 sm:py-0 mb-0 flex">
+      <div className="bg-muted/50 rounded-lg py-0 px-6 w-full md:w-auto">
+        <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-12">
           
           {/* 3D Motion Image with Zoom-In/Zoom-Out Effect */}
           <motion.img
             src={pilot}
-            alt="Pilot"
-            className="w-full md:w-[40%] object-contain rounded-lg mx-auto" // Center align
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            alt="About"
+            className="w-full md:w-[40%] object-contain rounded-lg mx-auto h-auto"
+            style={{ transform: 'translateX(-30px) translateY(-10px) !important' }}
+            initial={{ opacity: 0, scale: 0.9, x: 0, y: 0 }}
+            animate={{ opacity: 1, scale: 1, x: -10, y: -10 }} // Slight shift
             transition={{ duration: 0.8, ease: 'easeOut' }}
             whileHover={{
               scale: 1.1,
               rotateY: 20,
-              rotateX: 10,
+              rotateX: 30,
               rotateZ: 5,
               transition: { duration: 0.7, ease: 'easeOut' }
             }}

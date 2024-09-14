@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import data from './data/services_data.json';
+import services from './data/services'; // Ensure this path is correct
 
 const ServicesTemplate = () => {
   // 3D hover effect variants
@@ -9,7 +9,7 @@ const ServicesTemplate = () => {
       scale: 1.1,
       rotateX: 10,
       rotateY: 15,
-      rotateZ: 2,
+      rotateZ: 5,
       transition: {
         type: 'spring',
         stiffness: 200,
@@ -36,37 +36,34 @@ const ServicesTemplate = () => {
         </span>
       </h2>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {data.services.map((service, index) => (
+        {services.map((service, index) => (
           <motion.div
             key={index}
-            className="group rounded-xl border p-8 shadow-lg transition-transform duration-300 bg-[#fff] dark:bg-[#1e1e1e] cursor-pointer relative overflow-hidden"
+            className="group rounded-xl border p-8 shadow-lg transition-transform duration-300 bg-white dark:bg-gray-800 cursor-pointer relative overflow-hidden"
             whileHover={{ 
               scale: 1.05, 
-              background: 'linear-gradient(135deg, rgba(255,0,150,0.5), rgba(0,204,255,0.5))',
-              transition: {
-                duration: 0.4,
-                ease: 'easeInOut',
-              }
+              transition: { duration: 0.4, ease: 'easeInOut' }
             }}
-            initial={{ background: 'transparent' }}
+            initial={{ scale: 1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <motion.div
-              className="rounded-lg p-6"
+              className="relative rounded-lg p-6 flex flex-col items-center justify-center"
               variants={cardVariants}
               whileHover="hover"
               whileTap="tap"
               initial="rest"
             >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30 -z-10 transform rotate-12 scale-110" />
               <div className="mb-6 flex items-center justify-center">
-                {/* Placeholder for icons */}
-                <div className="text-4xl text-primary">
-                  {/* Insert icon component here */}
+                <div className="text-5xl text-primary dark:text-white">
+                  {React.createElement(service.icon)}
                 </div>
               </div>
               <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
                 {service.service_name}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
                 {service.service_desc}
               </p>
             </motion.div>
