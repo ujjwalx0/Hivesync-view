@@ -1,8 +1,5 @@
 User-agent: *
-Disallow: /private/
-Disallow: /tmp/
-Disallow: /admin/
-Disallow: /api/
+Disallow: 
 Allow: /
 
 Sitemap: https://www.hivesync.in.net/sitemap.xml
