@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaFrown } from 'react-icons/fa';
 
+
+
 const TicTacToe = () => {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [userSymbol, setUserSymbol] = useState('X');
@@ -13,49 +15,90 @@ const TicTacToe = () => {
     setUserSymbol(symbol);
     setComputerSymbol(symbol === 'X' ? 'O' : 'X');
     setBoard(Array(9).fill(null));
-    setIsUserTurn(symbol === 'X' ? true : false);
+    setIsUserTurn(symbol === 'X');
     setGameOver(false);
   };
 
   const calculateWinner = (board) => {
     const lines = [
-      [0,1,2],[3,4,5],[6,7,8],
-      [0,3,6],[1,4,7],[2,5,8],
-      [0,4,8],[2,4,6],
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6],
     ];
-    for(let [a,b,c] of lines) {
-      if(board[a] && board[a] === board[b] && board[a] === board[c]) {
+    for (let [a, b, c] of lines) {
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         return board[a];
       }
     }
-    if(board.every(cell => cell)) {
+    if (board.every(cell => cell)) {
       return 'Tie';
     }
     return null;
   };
 
-  const computerMove = () => {
-    // Simple AI: choose a random empty cell
-    const emptyCells = board.map((cell, idx) => cell === null ? idx : null).filter(val => val !== null);
-    if(emptyCells.length === 0) return;
-    const randomIndex = Math.floor(Math.random() * emptyCells.length);
-    const move = emptyCells[randomIndex];
-    const newBoard = [...board];
-    newBoard[move] = computerSymbol;
-    setBoard(newBoard);
-    if(calculateWinner(newBoard)) {
-      setGameOver(true);
+  const minimax = (board, isMaximizing) => {
+    const winner = calculateWinner(board);
+    if (winner === userSymbol) return -1;
+    if (winner === computerSymbol) return 1;
+    if (winner === 'Tie') return 0;
+
+    if (isMaximizing) {
+      let bestScore = -Infinity;
+      board.forEach((cell, idx) => {
+        if (cell === null) {
+          board[idx] = computerSymbol;
+          const score = minimax(board, false);
+          board[idx] = null;
+          bestScore = Math.max(score, bestScore);
+        }
+      });
+      return bestScore;
     } else {
-      setIsUserTurn(true);
+      let bestScore = Infinity;
+      board.forEach((cell, idx) => {
+        if (cell === null) {
+          board[idx] = userSymbol;
+          const score = minimax(board, true);
+          board[idx] = null;
+          bestScore = Math.min(score, bestScore);
+        }
+      });
+      return bestScore;
+    }
+  };
+
+  const computerMove = () => {
+    let bestMove;
+    let bestScore = -Infinity;
+    board.forEach((cell, idx) => {
+      if (cell === null) {
+        const newBoard = [...board];
+        newBoard[idx] = computerSymbol;
+        const score = minimax(newBoard, false);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = idx;
+        }
+      }
+    });
+    if (bestMove !== undefined) {
+      const newBoard = [...board];
+      newBoard[bestMove] = computerSymbol;
+      setBoard(newBoard);
+      if (calculateWinner(newBoard)) {
+        setGameOver(true);
+      } else {
+        setIsUserTurn(true);
+      }
     }
   };
 
   const handleClick = (index) => {
-    if(board[index] || gameOver || !isUserTurn) return;
+    if (board[index] || gameOver || !isUserTurn) return;
     const newBoard = [...board];
     newBoard[index] = userSymbol;
     setBoard(newBoard);
-    if(calculateWinner(newBoard)) {
+    if (calculateWinner(newBoard)) {
       setGameOver(true);
     } else {
       setIsUserTurn(false);
@@ -63,7 +106,7 @@ const TicTacToe = () => {
   };
 
   useEffect(() => {
-    if(!isUserTurn && !gameOver) {
+    if (!isUserTurn && !gameOver) {
       const timer = setTimeout(() => {
         computerMove();
       }, 500); // Computer moves after 0.5s
@@ -78,54 +121,53 @@ const TicTacToe = () => {
       <div className="mb-4">
         <p className="text-lg font-bold">Choose Your Symbol:</p>
         <div className="flex justify-center items-center space-x-4">
-  <button
-    className={`px-4 py-2 m-2 text-5xl font-extrabold rounded-lg shadow-lg transition-transform transform ${
-      userSymbol === 'X'
-        ? 'bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white'
-        : 'bg-gray-300 text-gray-800'
-    } hover:scale-105`}
-    onClick={() => handleSymbolChange('X')}
-  >
-    X
-  </button>
-  <button
-    className={`px-4 py-2 m-2 text-5xl font-extrabold rounded-lg shadow-lg transition-transform transform ${
-      userSymbol === 'O'
-        ? 'bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 text-white'
-        : 'bg-gray-300 text-gray-800'
-    } hover:scale-105`}
-    onClick={() => handleSymbolChange('O')}
-  >
-    O
-  </button>
-</div>
-
+          <button
+            className={`px-4 py-2 m-2 text-5xl font-extrabold rounded-lg shadow-lg transition-transform transform ${
+              userSymbol === 'X'
+                ? 'bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white'
+                : 'bg-gray-300 text-gray-800'
+            } hover:scale-105`}
+            onClick={() => handleSymbolChange('X')}
+          >
+            X
+          </button>
+          <button
+            className={`px-4 py-2 m-2 text-5xl font-extrabold rounded-lg shadow-lg transition-transform transform ${
+              userSymbol === 'O'
+                ? 'bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 text-white'
+                : 'bg-gray-300 text-gray-800'
+            } hover:scale-105`}
+            onClick={() => handleSymbolChange('O')}
+          >
+            O
+          </button>
+        </div>
       </div>
       <div className="grid grid-cols-3 gap-2 w-64">
-      {board.map((cell, index) => (
-        <motion.div
-          key={index}
-          className={`w-16 h-16 border rounded flex items-center justify-center text-4xl font-bold cursor-pointer transition-all duration-300 ${
-            cell === 'X'
-              ? 'bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white'
-              : cell === 'O'
-              ? 'bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 text-white'
-              : 'bg-gray-400 text-gray-800'
-          }`}
-          whileHover={{ scale: 1.05 }}
-          onClick={() => handleClick(index)}
-        >
-          {cell}
-        </motion.div>
-      ))}
-    </div>
+        {board.map((cell, index) => (
+          <motion.div
+            key={index}
+            className={`w-16 h-16 border rounded flex items-center justify-center text-4xl font-bold cursor-pointer transition-all duration-300 ${
+              cell === 'X'
+                ? 'bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white'
+                : cell === 'O'
+                ? 'bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 text-white'
+                : 'bg-gray-400 text-gray-800'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            onClick={() => handleClick(index)}
+          >
+            {cell}
+          </motion.div>
+        ))}
+      </div>
       {gameOver && (
         <div className="mt-4 mb-4">
-          <p className="text-xl font-bold ">
+          <p className="text-xl font-bold">
             {winner === 'Tie' ? "It's a Tie!" : `Winner: ${winner}`}
           </p>
           <button
-            className="mt-2 px-4 py-2 bg-green-500 text-white rounded mb-4"
+            className="mt-2 px-4 py-2 bg-green-500 text-white rounded mb-10"
             onClick={() => {
               setBoard(Array(9).fill(null));
               setGameOver(false);
@@ -139,6 +181,9 @@ const TicTacToe = () => {
     </div>
   );
 };
+
+
+
 
 const MemoryMatch = () => {
   const symbols = ['🍎', '🍌', '🍇', '🍓', '🍒', '🍍'];
